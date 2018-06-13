@@ -1,4 +1,4 @@
-package com.xq.androidfaster_pay.bean;
+package com.xq.androidfaster_pay.bean.behavior;
 
 
 import java.io.Serializable;
@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by Administrator on 2017/9/1.
  */
 
-public interface ParamBean {
+public interface WXParamBehavior {
 
     public String getAppid();
 

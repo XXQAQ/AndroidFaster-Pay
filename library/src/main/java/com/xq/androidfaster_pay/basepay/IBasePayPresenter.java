@@ -11,8 +11,8 @@ import com.alipay.sdk.app.PayTask;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.xq.androidfaster_pay.FasterPayInterface;
-import com.xq.androidfaster_pay.bean.ParamBean;
-import com.xq.androidfaster_pay.bean.PayResult;
+import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
+import com.xq.androidfaster_pay.bean.entity.PayResult;
 import com.xq.androidfaster_pay.event.WXPayEvent;
 import com.xq.projectdefine.base.abs.AbsPresenter;
 import com.xq.projectdefine.base.abs.AbsView;
@@ -89,19 +89,19 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
         payThread.start();
     }
 
-    default void wxPay(final ParamBean paramBean){
+    default void wxPay(final WXParamBehavior WXParamBehavior){
 
         Thread payThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 PayReq payReq = new PayReq();
-                payReq.appId = paramBean.getAppid();
-                payReq.partnerId = paramBean.getPartnerid();
-                payReq.prepayId = paramBean.getPrepayid();
-                payReq.packageValue = paramBean.getPackage();
-                payReq.nonceStr = paramBean.getNoncestr();
-                payReq.timeStamp = paramBean.getTimestamp();
-                payReq.sign = paramBean.getSign();
+                payReq.appId = WXParamBehavior.getAppid();
+                payReq.partnerId = WXParamBehavior.getPartnerid();
+                payReq.prepayId = WXParamBehavior.getPrepayid();
+                payReq.packageValue = WXParamBehavior.getPackage();
+                payReq.nonceStr = WXParamBehavior.getNoncestr();
+                payReq.timeStamp = WXParamBehavior.getTimestamp();
+                payReq.sign = WXParamBehavior.getSign();
                 //发起支付请求
                 FasterPayInterface.getApi().sendReq(payReq);
             }
