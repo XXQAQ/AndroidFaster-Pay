@@ -3,6 +3,8 @@ package com.xq.androidfaster_pay.basepay;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -16,6 +18,8 @@ import com.xq.androidfaster_pay.bean.entity.PayResult;
 import com.xq.androidfaster_pay.event.WXPayEvent;
 import com.xq.projectdefine.base.abs.AbsPresenter;
 import com.xq.projectdefine.base.abs.AbsView;
+import com.xq.projectdefine.base.baserefreshload.IFasterBaseRefreshLoadPresenter;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.Map;
@@ -23,6 +27,31 @@ import java.util.Map;
 public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
 
     public static final int FLAG_ALIPAY = 1;
+
+    @Override
+    default void afterOnCreate(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    default void onResume() {
+
+    }
+
+    @Override
+    default void onPause() {
+
+    }
+
+    @Override
+    default void onDestroy() {
+
+    }
+
+    @Override
+    default void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     default void onWXPayEvent(WXPayEvent event) {
