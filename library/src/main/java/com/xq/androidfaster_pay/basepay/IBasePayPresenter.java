@@ -34,12 +34,15 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
     default void onResume() {
 
         String data = ACache.get(getContext().getFilesDir()).getAsString(BaseResp.class.getName());
-        ACache.get(getContext().getFilesDir()).remove(BaseResp.class.getName());
+        if (!TextUtils.isEmpty(data))
+        {
+            ACache.get(getContext().getFilesDir()).remove(BaseResp.class.getName());
 
-        BaseResp resp = new Gson().fromJson(data,BaseResp.class);
+            BaseResp resp = new Gson().fromJson(data,BaseResp.class);
 
-        afterWXPay(resp);
-        onPayFinish(resp.getType() ==0?true:false);
+            afterWXPay(resp);
+            onPayFinish(resp.getType() ==0?true:false);
+        }
     }
 
     @Override
