@@ -8,20 +8,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.widget.Toast;
+
 import com.alipay.sdk.app.PayTask;
+import com.google.gson.Gson;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.xq.androidfaster_pay.FasterPayInterface;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
 import com.xq.androidfaster_pay.bean.entity.PayResult;
-import com.xq.androidfaster_pay.event.WXPayEvent;
 import com.xq.projectdefine.base.abs.AbsPresenter;
 import com.xq.projectdefine.base.abs.AbsView;
-import com.xq.projectdefine.base.baserefreshload.IFasterBaseRefreshLoadPresenter;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.xq.projectdefine.util.ACache;
 import java.util.Map;
 
 public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
@@ -36,6 +33,13 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
     @Override
     default void onResume() {
 
+        String data = ACache.get(getContext().getFilesDir()).getAsString(BaseResp.class.getName());
+        ACache.get(getContext().getFilesDir()).remove(BaseResp.class.getName());
+
+        BaseResp resp = new Gson().fromJson(data,BaseResp.class);
+
+        afterWXPay(resp);
+        onPayFinish(resp.getType() ==0?true:false);
     }
 
     @Override
@@ -51,27 +55,6 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
     @Override
     default void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    default void onWXPayEvent(WXPayEvent event) {
-        int code = event.getResp().getType();
-        switch (code) {
-            case 0:
-                Toast.makeText(getContext(),"支付成功",Toast.LENGTH_SHORT).show();
-                break;
-            case -1:
-                Toast.makeText(getContext(),"支付失败",Toast.LENGTH_SHORT).show();
-                break;
-            case -2:
-                Toast.makeText(getContext(),"用户取消支付",Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                Toast.makeText(getContext(),"未知错误",Toast.LENGTH_SHORT).show();
-                break;
-        }
-        afterWXPay(event.getResp());
-        onPayFinish(event.getResp().getType() ==0?true:false);
     }
 
     default void aliPay(final String orderInfo){
