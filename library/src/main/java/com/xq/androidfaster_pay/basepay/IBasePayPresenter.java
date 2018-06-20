@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-
 import com.alipay.sdk.app.PayTask;
-import com.google.gson.Gson;
-import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.xq.androidfaster_pay.FasterPayInterface;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
 import com.xq.androidfaster_pay.bean.entity.PayResult;
+import com.xq.androidfaster_pay.bean.entity.WXResult;
 import com.xq.projectdefine.base.abs.AbsPresenter;
 import com.xq.projectdefine.base.abs.AbsView;
 import com.xq.projectdefine.util.ACache;
@@ -33,15 +31,13 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
     @Override
     default void onResume() {
 
-        String data = ACache.get(getContext().getFilesDir()).getAsString(BaseResp.class.getName());
-        if (!TextUtils.isEmpty(data))
+        WXResult result = (WXResult) ACache.get(getContext().getFilesDir()).getAsObject(WXResult.class.getName());
+        if (result != null)
         {
-            ACache.get(getContext().getFilesDir()).remove(BaseResp.class.getName());
+            ACache.get(getContext().getFilesDir()).remove(WXResult.class.getName());
 
-            BaseResp resp = new Gson().fromJson(data,BaseResp.class);
-
-            afterWXPay(resp);
-            onPayFinish(resp.getType() ==0?true:false);
+            afterWXPay(result);
+            onPayFinish(result.getType() ==0?true:false);
         }
     }
 
@@ -61,7 +57,6 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
     }
 
     default void aliPay(final String orderInfo){
-
         @SuppressLint("HandlerLeak")
         final Handler aliPayHandler = new Handler() {
             @SuppressWarnings("unused")
@@ -124,7 +119,7 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
         payThread.start();
     }
 
-    public void afterWXPay(BaseResp resp);
+    public void afterWXPay(WXResult result);
 
     public void afterAliPay(PayResult payResult);
 

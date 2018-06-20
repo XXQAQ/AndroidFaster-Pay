@@ -5,11 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import com.google.gson.Gson;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.xq.androidfaster_pay.FasterPayInterface;
+import com.xq.androidfaster_pay.bean.entity.WXResult;
 import com.xq.projectdefine.util.ACache;
 
 
@@ -60,7 +60,7 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
                 break;
         }
 
-        ACache.get(getFilesDir()).put(BaseResp.class.getName(),new Gson().toJson(resp),30);
+        ACache.get(getFilesDir()).put(WXResult.class.getName(),new WXResult(resp.getType()),30);
 
         finish();
     }
