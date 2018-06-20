@@ -60,7 +60,7 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
                 break;
         }
 
-        ACache.get(getFilesDir()).put(WXResult.class.getName(),new WXResult(resp.getType()),30);
+        ACache.get(getFilesDir()).put(WXResult.class.getName(),new WXResult(resp.getType()));
 
         finish();
     }

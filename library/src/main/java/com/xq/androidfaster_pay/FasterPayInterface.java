@@ -13,7 +13,7 @@ public class FasterPayInterface {
     public static void init(Application app,String wxKey){
         FasterPayInterface.app = app;
 
-        api = WXAPIFactory.createWXAPI(app, null,true);
+        api = WXAPIFactory.createWXAPI(app, wxKey,true);
         api.registerApp(wxKey);
     }
 
