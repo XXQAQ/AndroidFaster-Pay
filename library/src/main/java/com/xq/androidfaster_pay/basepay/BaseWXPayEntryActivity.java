@@ -49,22 +49,6 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
         if (ConstantsAPI.COMMAND_PAY_BY_WX != resp.getType())
             return;
 
-        int code = resp.errCode;
-        switch (code) {
-            case 0:
-                Toast.makeText(this,"支付成功",Toast.LENGTH_SHORT).show();
-                break;
-            case -1:
-                Toast.makeText(this,"支付失败",Toast.LENGTH_SHORT).show();
-                break;
-            case -2:
-                Toast.makeText(this,"用户取消支付",Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                Toast.makeText(this,"未知错误",Toast.LENGTH_SHORT).show();
-                break;
-        }
-
         ACache.get(getFilesDir()).put(WXResult.class.getName(),new WXResult(resp.errCode));
 
         finish();
