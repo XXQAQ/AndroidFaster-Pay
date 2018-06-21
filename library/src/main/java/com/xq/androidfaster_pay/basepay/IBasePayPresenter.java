@@ -12,7 +12,7 @@ import com.alipay.sdk.app.PayTask;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.xq.androidfaster_pay.FasterPayInterface;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
-import com.xq.androidfaster_pay.bean.entity.PayResult;
+import com.xq.androidfaster_pay.bean.entity.AliResult;
 import com.xq.androidfaster_pay.bean.entity.WXResult;
 import com.xq.projectdefine.base.abs.AbsPresenter;
 import com.xq.projectdefine.base.abs.AbsView;
@@ -37,7 +37,7 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
             ACache.get(getContext().getFilesDir()).remove(WXResult.class.getName());
 
             afterWXPay(result);
-            onPayFinish(result.getType() ==0?true:false);
+            onPayFinish(result.getErroCode() ==0?true:false);
         }
     }
 
@@ -65,16 +65,16 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
                     case FLAG_ALIPAY: {
                         //对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
                         @SuppressWarnings("unchecked")
-                        PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                        AliResult aliResult = new AliResult((Map<String, String>) msg.obj);
                         // 同步返回需要验证的信息
-                        String resultInfo = payResult.getResult();
-                        String resultStatus = payResult.getResultStatus();
+                        String resultInfo = aliResult.getResult();
+                        String resultStatus = aliResult.getResultStatus();
                         // 判断resultStatus 为9000则代表支付成功
                         if (TextUtils.equals(resultStatus, "9000")) {
-                            afterAliPay(payResult);
+                            afterAliPay(aliResult);
                             onPayFinish(true);
                         } else {
-                            afterAliPay(payResult);
+                            afterAliPay(aliResult);
                             onPayFinish(false);
                         }
                         break;
@@ -121,7 +121,7 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
 
     public void afterWXPay(WXResult result);
 
-    public void afterAliPay(PayResult payResult);
+    public void afterAliPay(AliResult aliResult);
 
     public void onPayFinish(boolean isSuccess);
 

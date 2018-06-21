@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class WXResult implements Serializable{
 
-    private int type;
+    private int erroCode;
 
-    public WXResult(int type) {
-        this.type = type;
+    public WXResult(int erroCode) {
+        this.erroCode = erroCode;
     }
 
-    public int getType() {
-        return type;
+    public int getErroCode() {
+        return erroCode;
     }
 
-    public WXResult setType(int type) {
-        this.type = type;
+    public WXResult setErroCode(int erroCode) {
+        this.erroCode = erroCode;
         return this;
     }
 }
