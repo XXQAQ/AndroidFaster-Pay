@@ -47,7 +47,11 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
     public void onResp(BaseResp resp) {
 
         if (ConstantsAPI.COMMAND_PAY_BY_WX != resp.getType())
+        {
+            finish();
             return;
+        }
+
 
         ACache.get(getFilesDir()).put(WXResult.class.getName(),new WXResult(resp.errCode));
 
