@@ -56,6 +56,7 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
 
     }
 
+    //阿里支付
     default void aliPay(final String orderInfo){
         @SuppressLint("HandlerLeak")
         final Handler aliPayHandler = new Handler() {
@@ -83,7 +84,6 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
             }
         };
 
-        // 必须异步调用
         Thread payThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -99,6 +99,7 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
         payThread.start();
     }
 
+    //微信支付
     default void wxPay(final WXParamBehavior WXParamBehavior){
 
         Thread payThread = new Thread(new Runnable() {
@@ -119,10 +120,13 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
         payThread.start();
     }
 
+    //该方法在微信支付完成后回调
     public void afterWXPay(WXResult result);
 
+    //该方法在支付宝完成后回调
     public void afterAliPay(AliResult aliResult);
 
+    //所有支付方法完成后都会回调到该方法中
     public void onPayFinish(boolean isSuccess);
 
 }

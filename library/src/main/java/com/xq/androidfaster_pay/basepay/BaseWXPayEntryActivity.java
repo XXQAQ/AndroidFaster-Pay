@@ -52,7 +52,6 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
             return;
         }
 
-
         ACache.get(getFilesDir()).put(WXResult.class.getName(),new WXResult(resp.errCode));
 
         finish();

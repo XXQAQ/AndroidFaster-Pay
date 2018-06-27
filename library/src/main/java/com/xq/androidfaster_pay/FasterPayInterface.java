@@ -1,24 +1,23 @@
 package com.xq.androidfaster_pay;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.xq.projectdefine.FasterInterface;
 
 public class FasterPayInterface {
 
-    private static Application app;
     private static IWXAPI api;
 
-    public static void init(Application app,String wxKey){
-        FasterPayInterface.app = app;
+    public static void init(String wxKey){
 
-        api = WXAPIFactory.createWXAPI(app, wxKey,true);
-        api.registerApp(wxKey);
-    }
-
-    public static Application getApp() {
-        return app;
+        if (!TextUtils.isEmpty(wxKey))
+        {
+            api = WXAPIFactory.createWXAPI(FasterInterface.getApp(), wxKey,true);
+            api.registerApp(wxKey);
+        }
     }
 
     public static IWXAPI getApi() {
