@@ -16,7 +16,7 @@ import com.xq.androidfaster_pay.bean.entity.AliResult;
 import com.xq.androidfaster_pay.bean.entity.WXResult;
 import com.xq.projectdefine.base.abs.AbsPresenter;
 import com.xq.projectdefine.base.abs.AbsView;
-import com.xq.projectdefine.util.ACache;
+import com.xq.projectdefine.util.tools.CacheDiskUtils;
 import java.util.Map;
 
 public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
@@ -31,10 +31,10 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
     @Override
     default void onResume() {
 
-        WXResult result = (WXResult) ACache.get(getContext().getFilesDir()).getAsObject(WXResult.class.getName());
+        WXResult result = (WXResult) CacheDiskUtils.getInstance().getSerializable(WXResult.class.getName());
         if (result != null)
         {
-            ACache.get(getContext().getFilesDir()).remove(WXResult.class.getName());
+            CacheDiskUtils.getInstance().remove(WXResult.class.getName());
 
             afterWXPay(result);
             onPayFinish(result.getErroCode() ==0?true:false);

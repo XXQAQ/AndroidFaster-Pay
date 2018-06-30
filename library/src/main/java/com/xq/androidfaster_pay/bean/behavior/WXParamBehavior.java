@@ -3,9 +3,6 @@ package com.xq.androidfaster_pay.bean.behavior;
 
 import java.io.Serializable;
 
-/**
- * Created by Administrator on 2017/9/1.
- */
 
 public interface WXParamBehavior {
 

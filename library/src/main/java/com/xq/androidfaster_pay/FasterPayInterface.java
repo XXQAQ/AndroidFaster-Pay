@@ -1,8 +1,6 @@
 package com.xq.androidfaster_pay;
 
-import android.app.Application;
 import android.text.TextUtils;
-
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.xq.projectdefine.FasterInterface;

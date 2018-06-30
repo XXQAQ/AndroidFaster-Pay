@@ -4,16 +4,13 @@ package com.xq.androidfaster_pay.basepay;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
-
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.xq.androidfaster_pay.FasterPayInterface;
 import com.xq.androidfaster_pay.bean.entity.WXResult;
-import com.xq.projectdefine.util.ACache;
-
+import com.xq.projectdefine.util.tools.CacheDiskUtils;
 
 
 public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -52,7 +49,7 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
             return;
         }
 
-        ACache.get(getFilesDir()).put(WXResult.class.getName(),new WXResult(resp.errCode));
+        CacheDiskUtils.getInstance().put(WXResult.class.getName(),new WXResult(resp.errCode));
 
         finish();
     }
