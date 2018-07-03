@@ -17,6 +17,7 @@ import com.xq.androidfaster_pay.bean.entity.WXResult;
 import com.xq.projectdefine.base.abs.AbsPresenter;
 import com.xq.projectdefine.base.abs.AbsView;
 import com.xq.projectdefine.util.tools.CacheDiskUtils;
+
 import java.util.Map;
 
 public interface IBasePayPresenter<T extends AbsView> extends AbsPresenter<T> {
