@@ -1,9 +1,6 @@
 package com.xq.androidfaster_pay.bean.behavior;
 
 
-import java.io.Serializable;
-
-
 public interface WXParamBehavior {
 
     public String getAppid();
