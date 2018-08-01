@@ -33,21 +33,6 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPayPresenter<T>
         getPayDelegate().wxPay(WXParamBehavior);
     }
 
-    //该方法在微信支付完成后回调
-    default void afterWXPay(WXResult result) {
-        getPayDelegate().afterWXPay(result);
-    }
-
-    //该方法在支付宝完成后回调
-    default void afterAliPay(AliResult aliResult) {
-        getPayDelegate().afterAliPay(aliResult);
-    }
-
-    //所有支付方法完成后都会回调到该方法中
-    default void onPayFinish(boolean isSuccess) {
-        getPayDelegate().onPayFinish(isSuccess);
-    }
-
     public PayDelegate getPayDelegate();
 
     public abstract class PayDelegate<T extends AbsView> extends AbsPresenterDelegate<T> implements AbsPayPresenter<T>{
@@ -153,6 +138,15 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPayPresenter<T>
             });
             payThread.start();
         }
+
+        //该方法在微信支付完成后回调
+        protected abstract void afterWXPay(WXResult result);
+
+        //该方法在支付宝完成后回调
+        protected abstract void afterAliPay(AliResult aliResult);
+
+        //所有支付方法完成后都会回调到该方法中
+        protected abstract void onPayFinish(boolean isSuccess);
 
     }
 

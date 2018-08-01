@@ -15,13 +15,4 @@ public interface AbsPayPresenter<T extends AbsView> extends AbsPresenter<T> {
     //微信支付
     public void wxPay(final WXParamBehavior WXParamBehavior);
 
-    //该方法在微信支付完成后回调
-    public abstract void afterWXPay(WXResult result);
-
-    //该方法在支付宝完成后回调
-    public abstract void afterAliPay(AliResult aliResult);
-
-    //所有支付方法完成后都会回调到该方法中
-    public abstract void onPayFinish(boolean isSuccess);
-
 }
