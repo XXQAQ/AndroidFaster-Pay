@@ -10,18 +10,18 @@ import android.os.Message;
 import android.text.TextUtils;
 import com.alipay.sdk.app.PayTask;
 import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.xq.androidfaster.base.abs.AbsPresenterDelegate;
+import com.xq.androidfaster.base.abs.IAbsPresenter;
+import com.xq.androidfaster.base.abs.IAbsView;
+import com.xq.androidfaster.util.tools.CacheDiskUtils;
 import com.xq.androidfaster_pay.FasterPayInterface;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
 import com.xq.androidfaster_pay.bean.entity.AliResult;
 import com.xq.androidfaster_pay.bean.entity.WXResult;
-import com.xq.projectdefine.base.abs.AbsPresenter;
-import com.xq.projectdefine.base.abs.AbsPresenterDelegate;
-import com.xq.projectdefine.base.abs.AbsView;
-import com.xq.projectdefine.util.tools.CacheDiskUtils;
 
 import java.util.Map;
 
-public interface IBasePayPresenter<T extends AbsView> extends AbsPayPresenter<T> {
+public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<T> {
 
     @Override
     default void aliPay(final String orderInfo){
@@ -35,21 +35,22 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPayPresenter<T>
 
     public PayDelegate getPayDelegate();
 
-    public abstract class PayDelegate<T extends AbsView> extends AbsPresenterDelegate<T> implements AbsPayPresenter<T>{
+    public abstract class PayDelegate<T extends IAbsView> extends AbsPresenterDelegate<T> implements IAbsPayPresenter<T> {
 
         public static final int FLAG_ALIPAY = 1;
 
-        public PayDelegate(AbsPresenter presenter) {
+        public PayDelegate(IAbsPresenter presenter) {
             super(presenter);
         }
 
         @Override
         public void afterOnCreate(Bundle bundle) {
-
+            super.afterOnCreate(bundle);
         }
 
         @Override
         public void onResume() {
+            super.onResume();
             WXResult result = (WXResult) CacheDiskUtils.getInstance().getSerializable(WXResult.class.getName());
             if (result != null)
             {
@@ -62,17 +63,12 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPayPresenter<T>
 
         @Override
         public void onPause() {
-
+            super.onPause();
         }
 
         @Override
         public void onDestroy() {
-
-        }
-
-        @Override
-        public void onActivityResult(int i, int i1, Intent intent) {
-
+            super.onDestroy();
         }
 
         @Override
@@ -140,14 +136,12 @@ public interface IBasePayPresenter<T extends AbsView> extends AbsPayPresenter<T>
         }
 
         //该方法在微信支付完成后回调
-        protected abstract void afterWXPay(WXResult result);
+        public abstract void afterWXPay(WXResult result);
 
         //该方法在支付宝完成后回调
-        protected abstract void afterAliPay(AliResult aliResult);
+        public abstract void afterAliPay(AliResult aliResult);
 
         //所有支付方法完成后都会回调到该方法中
-        protected abstract void onPayFinish(boolean isSuccess);
-
+        public abstract void onPayFinish(boolean isSuccess);
     }
-
 }

@@ -8,13 +8,11 @@ import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.xq.androidfaster.util.tools.CacheDiskUtils;
 import com.xq.androidfaster_pay.FasterPayInterface;
 import com.xq.androidfaster_pay.bean.entity.WXResult;
-import com.xq.projectdefine.util.tools.CacheDiskUtils;
-
 
 public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandler {
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
