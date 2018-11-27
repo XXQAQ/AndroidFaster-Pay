@@ -136,10 +136,10 @@ public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<
         }
 
         //该方法在微信支付完成后回调
-        public abstract void afterWXPay(WXResult result);
+        protected abstract void afterWXPay(WXResult result);
 
         //该方法在支付宝完成后回调
-        public abstract void afterAliPay(AliResult aliResult);
+        protected abstract void afterAliPay(AliResult aliResult);
 
         //所有支付方法完成后都会回调到该方法中
         public abstract void onPayFinish(boolean isSuccess);
