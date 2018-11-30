@@ -3,7 +3,6 @@ package com.xq.androidfaster_pay.basepay;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +13,7 @@ import com.xq.androidfaster.base.abs.AbsPresenterDelegate;
 import com.xq.androidfaster.base.abs.IAbsPresenter;
 import com.xq.androidfaster.base.abs.IAbsView;
 import com.xq.androidfaster.util.tools.CacheDiskUtils;
-import com.xq.androidfaster_pay.FasterPayInterface;
+import com.xq.androidfaster_pay.FasterPay;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
 import com.xq.androidfaster_pay.bean.entity.AliResult;
 import com.xq.androidfaster_pay.bean.entity.WXResult;
@@ -129,7 +128,7 @@ public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<
                     payReq.timeStamp = WXParamBehavior.getTimestamp();
                     payReq.sign = WXParamBehavior.getSign();
                     //发起支付请求
-                    FasterPayInterface.getApi().sendReq(payReq);
+                    FasterPay.getApi().sendReq(payReq);
                 }
             });
             payThread.start();

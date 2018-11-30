@@ -9,7 +9,7 @@ import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.xq.androidfaster.util.tools.CacheDiskUtils;
-import com.xq.androidfaster_pay.FasterPayInterface;
+import com.xq.androidfaster_pay.FasterPay;
 import com.xq.androidfaster_pay.bean.entity.WXResult;
 
 public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -19,7 +19,7 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
         super.onCreate(savedInstanceState);
         try
         {
-            FasterPayInterface.getApi().handleIntent(getIntent(), this);
+            FasterPay.getApi().handleIntent(getIntent(), this);
         }
         catch (Exception e)
         {
@@ -31,7 +31,7 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        FasterPayInterface.getApi().handleIntent(intent, this);
+        FasterPay.getApi().handleIntent(intent, this);
     }
 
     @Override
