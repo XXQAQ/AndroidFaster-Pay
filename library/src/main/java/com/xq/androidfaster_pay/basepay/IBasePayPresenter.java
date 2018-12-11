@@ -1,9 +1,7 @@
 package com.xq.androidfaster_pay.basepay;
 
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -43,11 +41,6 @@ public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<
         }
 
         @Override
-        public void afterOnCreate(Bundle bundle) {
-            super.afterOnCreate(bundle);
-        }
-
-        @Override
         public void onResume() {
             super.onResume();
             WXResult result = (WXResult) CacheDiskUtils.getInstance().getSerializable(WXResult.class.getName());
@@ -58,16 +51,6 @@ public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<
                 afterWXPay(result);
                 onPayFinish(result.getErroCode() ==0?true:false);
             }
-        }
-
-        @Override
-        public void onPause() {
-            super.onPause();
-        }
-
-        @Override
-        public void onDestroy() {
-            super.onDestroy();
         }
 
         @Override
@@ -114,21 +97,21 @@ public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<
         }
 
         @Override
-        public void wxPay(final WXParamBehavior WXParamBehavior){
+        public void wxPay(final WXParamBehavior behavior){
 
             Thread payThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     PayReq payReq = new PayReq();
-                    payReq.appId = WXParamBehavior.getAppid();
-                    payReq.partnerId = WXParamBehavior.getPartnerid();
-                    payReq.prepayId = WXParamBehavior.getPrepayid();
-                    payReq.packageValue = WXParamBehavior.getPackage();
-                    payReq.nonceStr = WXParamBehavior.getNoncestr();
-                    payReq.timeStamp = WXParamBehavior.getTimestamp();
-                    payReq.sign = WXParamBehavior.getSign();
+                    payReq.appId = behavior.getAppid();
+                    payReq.partnerId = behavior.getPartnerid();
+                    payReq.prepayId = behavior.getPrepayid();
+                    payReq.packageValue = behavior.getPackage();
+                    payReq.nonceStr = behavior.getNoncestr();
+                    payReq.timeStamp = behavior.getTimestamp();
+                    payReq.sign = behavior.getSign();
                     //发起支付请求
-                    FasterPay.getApi().sendReq(payReq);
+                    FasterPay.getWXApi().sendReq(payReq);
                 }
             });
             payThread.start();

@@ -1,5 +1,6 @@
 package com.xq.androidfaster_pay;
 
+import android.content.res.Resources;
 import android.text.TextUtils;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -11,7 +12,7 @@ public class FasterPay {
 
     public static void init(){
 
-        String wxKey = getApp().getResources().getString(R.string.WXPay_key);
+        String wxKey = Resources.getSystem().getString(R.string.WXPay_key);
         if (!TextUtils.isEmpty(wxKey))
         {
             api = WXAPIFactory.createWXAPI(getApp(), wxKey,true);
@@ -19,7 +20,7 @@ public class FasterPay {
         }
     }
 
-    public static IWXAPI getApi() {
+    public static IWXAPI getWXApi() {
         return api;
     }
 }

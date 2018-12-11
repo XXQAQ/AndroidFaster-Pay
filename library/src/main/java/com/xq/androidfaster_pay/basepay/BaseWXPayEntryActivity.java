@@ -1,6 +1,5 @@
 package com.xq.androidfaster_pay.basepay;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
         super.onCreate(savedInstanceState);
         try
         {
-            FasterPay.getApi().handleIntent(getIntent(), this);
+            FasterPay.getWXApi().handleIntent(getIntent(), this);
         }
         catch (Exception e)
         {
@@ -31,7 +30,7 @@ public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandl
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        FasterPay.getApi().handleIntent(intent, this);
+        FasterPay.getWXApi().handleIntent(intent, this);
     }
 
     @Override
