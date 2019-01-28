@@ -1,4 +1,4 @@
-package com.xq.androidfaster_pay.basepay;
+package com.xq.androidfaster_pay.base.basepay;
 
 import com.xq.androidfaster.base.abs.IAbsPresenter;
 import com.xq.androidfaster.base.abs.IAbsView;

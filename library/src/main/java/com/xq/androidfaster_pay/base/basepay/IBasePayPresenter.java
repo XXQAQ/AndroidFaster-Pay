@@ -1,4 +1,4 @@
-package com.xq.androidfaster_pay.basepay;
+package com.xq.androidfaster_pay.base.basepay;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
