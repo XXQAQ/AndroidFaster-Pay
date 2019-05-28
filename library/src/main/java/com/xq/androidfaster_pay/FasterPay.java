@@ -3,7 +3,7 @@ package com.xq.androidfaster_pay;
 import android.text.TextUtils;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.xq.androidfaster.AndroidFaster;
+import com.xq.androidfaster.util.tools.ResourceUtils;
 
 import static com.xq.androidfaster.AndroidFaster.getApp;
 
@@ -13,7 +13,7 @@ public class FasterPay {
 
     public static void init(){
 
-        String wxKey = AndroidFaster.getApp().getString(R.string.WXPay_key);
+        String wxKey = ResourceUtils.getString(R.string.WXPay_key);
         if (!TextUtils.isEmpty(wxKey))
         {
             api = WXAPIFactory.createWXAPI(getApp(), wxKey,true);
