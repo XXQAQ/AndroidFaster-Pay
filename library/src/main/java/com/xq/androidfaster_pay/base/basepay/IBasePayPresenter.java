@@ -41,8 +41,9 @@ public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<
         }
 
         @Override
-        public void onResume() {
-            super.onResume();
+        public void visible() {
+            super.visible();
+
             WXResult result = (WXResult) CacheDiskUtils.getInstance().getSerializable(WXResult.class.getName());
             if (result != null)
             {
