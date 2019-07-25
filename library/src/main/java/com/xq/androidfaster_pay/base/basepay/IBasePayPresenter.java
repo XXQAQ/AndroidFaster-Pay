@@ -7,18 +7,17 @@ import android.os.Message;
 import android.text.TextUtils;
 import com.alipay.sdk.app.PayTask;
 import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.xq.androidfaster.base.abs.AbsPresenterDelegate;
-import com.xq.androidfaster.base.abs.IAbsPresenter;
-import com.xq.androidfaster.base.abs.IAbsView;
+import com.xq.androidfaster.base.core.Controler;
+import com.xq.androidfaster.base.delegate.BaseDelegate;
 import com.xq.androidfaster.util.tools.CacheDiskUtils;
 import com.xq.androidfaster_pay.FasterPay;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
-import com.xq.androidfaster_pay.bean.entity.AliResult;
-import com.xq.androidfaster_pay.bean.entity.WXResult;
+import com.xq.androidfaster_pay.bean.AliResult;
+import com.xq.androidfaster_pay.bean.WXResult;
 
 import java.util.Map;
 
-public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<T> {
+public interface IBasePayPresenter<T extends Controler> extends IBasePayBehavior<T> {
 
     @Override
     default void aliPay(final String orderInfo){
@@ -32,12 +31,12 @@ public interface IBasePayPresenter<T extends IAbsView> extends IAbsPayPresenter<
 
     public PayDelegate getPayDelegate();
 
-    public abstract class PayDelegate<T extends IAbsView> extends AbsPresenterDelegate<T> implements IAbsPayPresenter<T> {
+    public abstract class PayDelegate<T extends Controler> extends BaseDelegate<T> implements IBasePayBehavior<T> {
 
         public static final int FLAG_ALIPAY = 1;
 
-        public PayDelegate(IAbsPresenter presenter) {
-            super(presenter);
+        public PayDelegate(T controler) {
+            super(controler);
         }
 
         @Override

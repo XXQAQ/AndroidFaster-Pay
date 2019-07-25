@@ -1,10 +1,9 @@
 package com.xq.androidfaster_pay.base.basepay;
 
-import com.xq.androidfaster.base.abs.IAbsPresenter;
-import com.xq.androidfaster.base.abs.IAbsView;
+import com.xq.androidfaster.base.core.Controler;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
 
-public interface IAbsPayPresenter<T extends IAbsView> extends IAbsPresenter<T> {
+public interface IBasePayBehavior<T extends Controler> extends Controler<T> {
 
     //阿里支付
     public void aliPay(final String orderInfo);

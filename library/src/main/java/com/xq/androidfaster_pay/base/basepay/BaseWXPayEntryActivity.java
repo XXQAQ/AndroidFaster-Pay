@@ -9,7 +9,7 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.xq.androidfaster.util.tools.CacheDiskUtils;
 import com.xq.androidfaster_pay.FasterPay;
-import com.xq.androidfaster_pay.bean.entity.WXResult;
+import com.xq.androidfaster_pay.bean.WXResult;
 
 public class BaseWXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 

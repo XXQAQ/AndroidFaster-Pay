@@ -1,4 +1,4 @@
-package com.xq.androidfaster_pay.bean.entity;
+package com.xq.androidfaster_pay.bean;
 
 import java.io.Serializable;
 
