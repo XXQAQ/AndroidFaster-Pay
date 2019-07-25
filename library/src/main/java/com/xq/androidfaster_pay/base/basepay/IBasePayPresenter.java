@@ -14,11 +14,13 @@ import com.xq.androidfaster_pay.FasterPay;
 import com.xq.androidfaster_pay.bean.behavior.WXParamBehavior;
 import com.xq.androidfaster_pay.bean.AliResult;
 import com.xq.androidfaster_pay.bean.WXResult;
-
 import java.util.Map;
 
-public interface IBasePayPresenter<T extends Controler> extends IBasePayBehavior<T> {
+public interface IBasePayPresenter extends IBasePayBehavior {
 
+    ///////////////////////////////////////////////////////////////////////////
+    // P
+    ///////////////////////////////////////////////////////////////////////////
     @Override
     default void aliPay(final String orderInfo){
         getPayDelegate().aliPay(orderInfo);
@@ -31,11 +33,11 @@ public interface IBasePayPresenter<T extends Controler> extends IBasePayBehavior
 
     public PayDelegate getPayDelegate();
 
-    public abstract class PayDelegate<T extends Controler> extends BaseDelegate<T> implements IBasePayBehavior<T> {
+    public abstract class PayDelegate extends BaseDelegate implements IBasePayBehavior {
 
         public static final int FLAG_ALIPAY = 1;
 
-        public PayDelegate(T controler) {
+        public PayDelegate(Controler controler) {
             super(controler);
         }
 
