@@ -18,6 +18,8 @@ import java.util.Map;
 
 public interface IBasePayPresenter extends IBasePayBehavior {
 
+    public PayDelegate getPayDelegate();
+
     ///////////////////////////////////////////////////////////////////////////
     // P
     ///////////////////////////////////////////////////////////////////////////
@@ -31,7 +33,11 @@ public interface IBasePayPresenter extends IBasePayBehavior {
         getPayDelegate().wxPay(WXParamBehavior);
     }
 
-    public PayDelegate getPayDelegate();
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // V
+    ///////////////////////////////////////////////////////////////////////////
 
     public abstract class PayDelegate extends BaseDelegate implements IBasePayBehavior {
 
