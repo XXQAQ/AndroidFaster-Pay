@@ -5,7 +5,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.xq.androidfaster.util.tools.ResourceUtils;
 
-import static com.xq.androidfaster.AndroidFaster.getApp;
+import static com.xq.androidfaster.util.tools.Utils.getApp;
 
 public class FasterPay {
 
